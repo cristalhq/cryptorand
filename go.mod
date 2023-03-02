@@ -1,3 +1,3 @@
 module github.com/cristalhq/cryptorand
 
-go 1.20
+go 1.19

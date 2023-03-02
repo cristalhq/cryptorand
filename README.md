@@ -16,7 +16,7 @@ Go package provides `math/rand.Source64` implementation based on `crypto/rand`.
 
 ## Install
 
-Go version 1.20+
+Go version 1.19+
 
 ```
 go get github.com/cristalhq/cryptorand
