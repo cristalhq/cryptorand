@@ -1,7 +1,6 @@
 package cryptorand
 
 import (
-	"math/rand"
 	"testing"
 )
 
@@ -53,7 +52,7 @@ func BenchmarkRandSource64(b *testing.B) {
 }
 
 func sinkAny(v uint64) {
-	if float64(v) < rand.Float64() {
+	if float64(v) < 0 {
 		panic("impossible")
 	}
 }
