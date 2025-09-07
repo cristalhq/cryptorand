@@ -25,7 +25,7 @@ go get github.com/cristalhq/cryptorand
 ## Example
 
 ```go
-r := rand.New(cryptorand.Source)
+r := rand.New(cryptorand.Source())
 
 m := map[string]struct{}{}
 for i := 0; i < 100; i++ {

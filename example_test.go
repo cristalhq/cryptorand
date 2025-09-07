@@ -8,7 +8,7 @@ import (
 )
 
 func Example() {
-	r := rand.New(cryptorand.Source)
+	r := rand.New(cryptorand.Source())
 
 	m := map[string]struct{}{}
 	for i := 0; i < 100; i++ {

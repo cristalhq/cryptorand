@@ -1,18 +1,20 @@
 package cryptorand
 
 import (
-	cryptorand "crypto/rand"
+	"crypto/rand"
 	"fmt"
 	"io"
 	"math/big"
-	"math/rand"
+	mathrand "math/rand"
 )
 
-// Source implements math/rand.Source64 interface.
+// Source returns [math/rand.Source64] interface based on [crypto/rand.Reader].
 // Seed method is not supported and will panic.
-var Source = newSource(cryptorand.Reader)
+func Source() mathrand.Source64 {
+	return newSource(rand.Reader)
+}
 
-func newSource(r io.Reader) rand.Source {
+func newSource(r io.Reader) mathrand.Source64 {
 	return source{r: r}
 }
 
@@ -21,7 +23,7 @@ type source struct {
 }
 
 func (s source) Int63() int64 {
-	i, err := cryptorand.Int(s.r, maxInt63)
+	i, err := rand.Int(s.r, maxInt63)
 	if err != nil {
 		panic(fmt.Errorf("cryptorand: crypto/rand.Int returned error: %w", err))
 	}
@@ -29,7 +31,7 @@ func (s source) Int63() int64 {
 }
 
 func (s source) Uint64() uint64 {
-	i, err := cryptorand.Int(s.r, maxUint64)
+	i, err := rand.Int(s.r, maxUint64)
 	if err != nil {
 		panic(fmt.Errorf("cryptorand: crypto/rand.Int returned error: %w", err))
 	}
@@ -37,7 +39,7 @@ func (s source) Uint64() uint64 {
 }
 
 func (source) Seed(int64) {
-	panic("cryptorand: Seed is not allowed for cryptorand.Source")
+	panic("cryptorand: Seed is not allowed for rand.Source")
 }
 
 var maxInt63, maxUint64 *big.Int

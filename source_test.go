@@ -6,12 +6,17 @@ import (
 )
 
 func TestSource(t *testing.T) {
-	s := Source.(rand.Source64)
-	if s.Int63() == s.Int63() {
+	s := Source()
+
+	a := s.Int63()
+	b := s.Int63()
+	if a == b {
 		t.Fatal("Expected Int63() to be random")
 	}
 
-	if s.Uint64() == s.Uint64() {
+	c := s.Uint64()
+	d := s.Uint64()
+	if c == d {
 		t.Fatal("Expected Uint64() to be random")
 	}
 }
@@ -23,12 +28,12 @@ func TestSeedPanic(t *testing.T) {
 		}
 	}()
 
-	s := Source
+	s := Source()
 	s.Seed(1)
 }
 
 func BenchmarkRandSource(b *testing.B) {
-	s := Source
+	s := Source()
 
 	var sink int64
 	for i := 0; i < b.N; i++ {
@@ -38,7 +43,7 @@ func BenchmarkRandSource(b *testing.B) {
 }
 
 func BenchmarkRandSource64(b *testing.B) {
-	s := Source.(rand.Source64)
+	s := Source()
 
 	var sink uint64
 	for i := 0; i < b.N; i++ {
